@@ -3,7 +3,7 @@ import Header from "../components/dashboard/Header";
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-950 text-gray-300">
       <div className="flex">
         
         <Sidebar />

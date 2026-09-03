@@ -1,6 +1,13 @@
+import { Inter } from "next/font/google";
 import Navbar from "./components/dashboard/Navbar";
 import Footer from "./components/ui/footer";
+
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "TaskFlow",
@@ -10,12 +17,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar/>
-
+      <body className={inter.className}>
+        {/* <Navbar /> */}
         {children}
-
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

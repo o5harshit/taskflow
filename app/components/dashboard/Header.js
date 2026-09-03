@@ -6,7 +6,7 @@ export default function Header() {
   const [search, setSearch] = useState("");
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-white px-6">
+    <header className="flex h-16 items-center justify-between px-6 border-b border-white bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950">
 
       <div className="w-full max-w-md">
         <input

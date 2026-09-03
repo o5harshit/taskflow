@@ -28,13 +28,13 @@ export default function ProjectList() {
 
       <div className="mb-4 flex items-center justify-between">
 
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-lg font-semibold text-white">
           Recent Projects
         </h2>
 
         <Link
           href="/projects"
-          className="text-sm font-medium hover:underline"
+          className="text-sm font-medium text-white/50 hover:underline"
         >
           View all →
         </Link>

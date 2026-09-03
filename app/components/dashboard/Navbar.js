@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-export default function Navbar(){
+export default function Navbar() {
+  return (
     <nav>
       <Link href="/">TaskFlow</Link>
 
@@ -10,4 +11,5 @@ export default function Navbar(){
         <Link href="/dashboard">Dashboard</Link>
       </div>
     </nav>
+  );
 }

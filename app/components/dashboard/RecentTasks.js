@@ -25,13 +25,13 @@ export default function RecentTasks() {
   return (
     <section>
 
-      <h2 className="mb-4 text-lg font-semibold">
+      <h2 className="mb-4 text-lg font-semibold text-white">
         Recent Tasks
       </h2>
 
-      <div className="overflow-hidden rounded-xl border bg-white">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950">
 
-        {tasks.map((task) => (
+        {tasks.map((task) => (  
           <TaskItem
             key={task.id}
             task={task}

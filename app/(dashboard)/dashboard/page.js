@@ -10,11 +10,11 @@ export default function DashboardPage() {
       {/* Page heading */}
 
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
-          Dashboard
+        <h1 className="text-2xl font-bold text-white">
+          Dashboard 
         </h1>
 
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-white/50">
           Welcome back! Here&lsquo;s what&apos;s happening.
         </p>
       </div>
