@@ -1,6 +1,35 @@
+"use client"
+
+import axios from "axios";
 import Link from "next/link";
+import { Router } from "next/router";
+import { useState } from "react";
+
 
 export default function RegisterPage() {
+  const [username,setusername] = useState("");
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  const [confirmPassword,setconfirmpassword] = useState("");
+
+  async function createUser(e){
+    e.preventDefault();
+    if(!username || !password || !confirmPassword || !email){
+      console.error("The feild is empty");
+      return;
+    }
+    if(password != confirmPassword){
+      console.error("the password and confirmPassword are diffrent");
+      return;
+    }
+    const response = await axios.post("http://localhost:3000/api/auth",{name : username,email,password});
+    console.log(response.data);
+    if(response.status === 200){
+      Router.push("/");
+    }else{
+      console.error("Something went wrong");
+    }
+  }
   return (
     <main className="flex min-h-[calc(100vh-64px)] items-center justify-center px-6 py-12">
 
@@ -40,6 +69,8 @@ export default function RegisterPage() {
               <input
                 id="name"
                 type="text"
+                value={username}
+                onChange={(e) => setusername(e.target.value)}
                 placeholder="Enter your full name"
                 className="w-full rounded-lg border border-white/10 bg-slate-950/70 px-4 py-3 font-medium text-white outline-none placeholder:text-slate-600 transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
               />
@@ -57,6 +88,8 @@ export default function RegisterPage() {
               <input
                 id="email"
                 type="email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
                 placeholder="you@example.com"
                 className="w-full rounded-lg border border-white/10 bg-slate-950/70 px-4 py-3 font-medium text-white outline-none placeholder:text-slate-600 transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
               />
@@ -73,6 +106,8 @@ export default function RegisterPage() {
 
               <input
                 id="password"
+                value={password}
+                onChange={(e) => setpassword(e.target.value)}
                 type="password"
                 placeholder="Create a password"
                 className="w-full rounded-lg border border-white/10 bg-slate-950/70 px-4 py-3 font-medium text-white outline-none placeholder:text-slate-600 transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -95,6 +130,8 @@ export default function RegisterPage() {
               <input
                 id="confirmPassword"
                 type="password"
+                value={confirmPassword}
+                onChange={(e) => setconfirmpassword(e.target.value)}
                 placeholder="Confirm your password"
                 className="w-full rounded-lg border border-white/10 bg-slate-950/70 px-4 py-3 font-medium text-white outline-none placeholder:text-slate-600 transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
               />
@@ -135,6 +172,7 @@ export default function RegisterPage() {
             {/* Submit */}
             <button
               type="submit"
+              onClick={(e) => createUser(e)}
               className="w-full rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-indigo-500/20 transition hover:from-indigo-500 hover:to-violet-500 hover:shadow-indigo-500/30"
             >
               Create account
