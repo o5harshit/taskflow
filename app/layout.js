@@ -3,6 +3,7 @@ import Navbar from "./components/dashboard/Navbar";
 import Footer from "./components/ui/footer";
 
 import "./globals.css";
+import { Providers } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
