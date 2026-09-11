@@ -2,32 +2,50 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [username,setusername] = useState("");
   const [email,setemail] = useState("");
   const [password,setpassword] = useState("");
   const [confirmPassword,setconfirmpassword] = useState("");
 
-  async function createUser(e){
+   async function createUser(e) {
     e.preventDefault();
-    if(!username || !password || !confirmPassword || !email){
-      console.error("The feild is empty");
+
+    if (!username || !password || !confirmPassword || !email) {
+      console.error("The field is empty");
       return;
     }
-    if(password != confirmPassword){
-      console.error("the password and confirmPassword are diffrent");
+
+    if (password !== confirmPassword) {
+      console.error("Passwords do not match");
       return;
     }
-    const response = await axios.post("http://localhost:3000/api/auth",{name : username,email,password});
-    console.log(response.data);
-    if(response.status === 200){
-      Router.push("/");
-    }else{
-      console.error("Something went wrong");
+
+    try {
+
+      const response = await axios.post("/api/register", {
+        name: username,
+        email,
+        password,
+      });
+
+      console.log(response.data);
+
+      if (response.status === 201) {
+        router.push("/login");
+      }
+
+    } catch (error) {
+
+      console.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+
     }
   }
   return (
@@ -172,7 +190,7 @@ export default function RegisterPage() {
             {/* Submit */}
             <button
               type="submit"
-              onClick={(e) => createUser(e)}
+              onSubmit={createUser}
               className="w-full rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-indigo-500/20 transition hover:from-indigo-500 hover:to-violet-500 hover:shadow-indigo-500/30"
             >
               Create account
