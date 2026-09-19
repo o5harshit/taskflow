@@ -202,7 +202,7 @@ export default function SignInPage() {
             Don't have an account?{" "}
             <button
               type="button"
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/register")}
               className="font-semibold text-violet-400 transition hover:text-violet-300"
             >
               Create an account
