@@ -3,7 +3,7 @@ import RecentTasks from "../../components/dashboard/RecentTasks";
 import StatCard from "../../components/dashboard/StatCard";
 
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   return (
     <div className="space-y-8">
 

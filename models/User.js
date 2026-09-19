@@ -18,16 +18,19 @@ const userSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: true,
+      required: false,
+    },
+    provider: {
+      type: String,
+      enum: ["credentials", "google"],
+      default: "credentials",
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const User =
-  mongoose.models.User ||
-  mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

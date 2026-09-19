@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
 import axios from "axios";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
 export default function RegisterPage() {
   const router = useRouter();
-  const [username,setusername] = useState("");
-  const [email,setemail] = useState("");
-  const [password,setpassword] = useState("");
-  const [confirmPassword,setconfirmpassword] = useState("");
+  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [confirmPassword, setconfirmpassword] = useState("");
 
-   async function createUser(e) {
+  async function createUser(e) {
     e.preventDefault();
 
     if (!username || !password || !confirmPassword || !email) {
@@ -27,35 +27,37 @@ export default function RegisterPage() {
     }
 
     try {
-
-      const response = await axios.post("/api/register", {
+      const response = await axios.post("/api/auth/register", {
         name: username,
         email,
         password,
       });
 
-      console.log(response.data);
-
       if (response.status === 201) {
-        router.push("/login");
+        const result = await signIn("credentials", {
+          email: email,
+          password: password,
+          redirect: false,
+        });
+
+        console.log(result);
+
+        if (result?.ok) {
+          router.push("/dashboard");
+        } else {
+          console.error("Automatic login failed");
+        }
       }
-
     } catch (error) {
-
-      console.error(
-        error.response?.data?.message || "Something went wrong"
-      );
-
+      console.log(error);
+      console.error(error.response?.data?.message || "Something went wrong");
     }
   }
   return (
     <main className="flex min-h-[calc(100vh-64px)] items-center justify-center px-6 py-12">
-
       <div className="w-full max-w-md">
-
         {/* Heading */}
         <div className="text-center">
-
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 text-lg font-extrabold shadow-lg shadow-indigo-500/20">
             TF
           </div>
@@ -67,14 +69,11 @@ export default function RegisterPage() {
           <p className="mt-2 font-medium text-slate-400">
             Start managing your projects with TaskFlow.
           </p>
-
         </div>
 
         {/* Card */}
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
-
-          <form className="space-y-5">
-
+          <form className="space-y-5" onSubmit={createUser}>
             {/* Name */}
             <div>
               <label
@@ -157,7 +156,6 @@ export default function RegisterPage() {
 
             {/* Terms */}
             <div className="flex items-start gap-3">
-
               <input
                 id="terms"
                 type="checkbox"
@@ -184,23 +182,19 @@ export default function RegisterPage() {
                 </Link>
                 .
               </label>
-
             </div>
 
             {/* Submit */}
             <button
               type="submit"
-              onSubmit={createUser}
               className="w-full rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-indigo-500/20 transition hover:from-indigo-500 hover:to-violet-500 hover:shadow-indigo-500/30"
             >
               Create account
             </button>
-
           </form>
 
           {/* Divider */}
           <div className="my-6 flex items-center gap-4">
-
             <div className="h-px flex-1 bg-white/10" />
 
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
@@ -208,24 +202,22 @@ export default function RegisterPage() {
             </span>
 
             <div className="h-px flex-1 bg-white/10" />
-
           </div>
 
           {/* Google */}
           <button
             type="button"
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-white/10 bg-white/5 px-5 py-3 font-semibold text-slate-200 transition hover:bg-white/10"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-medium text-white transition hover:bg-white/[0.08]"
           >
-            <span className="text-lg font-bold">G</span>
+            <span className="font-bold">G</span>
             Continue with Google
           </button>
-
         </div>
 
         {/* Login */}
         <p className="mt-6 text-center text-sm font-medium text-slate-500">
           Already have an account?{" "}
-
           <Link
             href="/login"
             className="font-bold text-indigo-400 transition hover:text-indigo-300"
@@ -233,9 +225,7 @@ export default function RegisterPage() {
             Sign in
           </Link>
         </p>
-
       </div>
-
     </main>
   );
 }
