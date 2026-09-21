@@ -31,6 +31,7 @@ export default function RegisterPage() {
         name: username,
         email,
         password,
+        confirmPassword
       });
 
       if (response.status === 201) {

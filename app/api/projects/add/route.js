@@ -1,6 +1,7 @@
 import Project from "../../../../models/Project";
 import { connectDB } from "../../../../lib/mongodb";
 import { auth } from "../../auth/[...nextauth]/route";
+import { projectSchema } from "../../../../lib/validations/project";
 
 export async function POST(request) {
   try {
@@ -18,6 +19,14 @@ export async function POST(request) {
       );
     }
 
+    const result = projectSchema.safeParse({name,description,status,priority,startDate,dueDate});
+    if(!result.success){
+      Response.json({
+        message : "validation error",
+        errors: result.error.issues
+      },{status : 400})
+    }
+
     await connectDB();
 
     const project = await Project.create({
@@ -28,7 +37,7 @@ export async function POST(request) {
       startDate,
       dueDate,
       owner : session.user.id,
-    });
+    }); //  need to put result.data here 
 
     return Response.json(
       {
