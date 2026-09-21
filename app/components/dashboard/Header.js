@@ -4,11 +4,10 @@ import { useState } from "react";
 
 export default function Header() {
   const session = useSession();
-  console.log(session);
   const [search, setSearch] = useState("");
 
   return (
-    <header className="flex h-16 items-center justify-between px-6 border-b border-white bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950">
+    <header className="flex h-16 items-center justify-between px-6 border-b border-white bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950"   style={{ backgroundColor: "var(--primary)" }}>
       <div className="w-full max-w-md">
         <input
           type="text"

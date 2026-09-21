@@ -1,65 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import ProjectCard from "../../components/Projects/ProjectCard";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const projects = [
-  {
-    id: "1",
-    name: "E-commerce Website",
-    description: "Build a modern online shopping platform.",
-    progress: 75,
-    status: "In Progress",
-    tasks: 24,
-    completedTasks: 18,
-  },
-  {
-    id: "2",
-    name: "Mobile Application",
-    description: "Build the TaskFlow mobile application.",
-    progress: 45,
-    status: "In Progress",
-    tasks: 32,
-    completedTasks: 14,
-  },
-  {
-    id: "3",
-    name: "Marketing Website",
-    description: "Create the company marketing website.",
-    progress: 90,
-    status: "Almost Done",
-    tasks: 20,
-    completedTasks: 18,
-  },
-  {
-    id: "4",
-    name: "Admin Dashboard",
-    description: "Build the internal administration dashboard.",
-    progress: 30,
-    status: "In Progress",
-    tasks: 40,
-    completedTasks: 12,
-  },
-];
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [search, setSearch] = useState("");
 
+  // Fetch projects
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const response = await axios.get("/api/projects/fetch");
 
-export default async function  ProjectsPage({searchParams }) {
+        console.log(response);
 
-  const params = await searchParams;
+        setProjects(response.data.project);
+        setFilteredProjects(response.data.project);
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-  console.log(params);
+    fetchProjects();
+  }, []);
 
-  const search = params.search || "";
+  // Filter projects whenever search changes
+  useEffect(() => {
+    const filtered = projects.filter((project) =>
+      project.name.toLowerCase().includes(search.toLowerCase())
+    );
 
-  const filteredProjects = projects.filter((project) =>
-    project.name.toLowerCase().includes(search.toLowerCase())
-  );
-  
+    setFilteredProjects(filtered);
+  }, [search, projects]);
+
   return (
     <div className="space-y-8">
 
       {/* Header */}
-
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-
         <div>
           <h1 className="text-2xl font-bold text-white">
             Projects
@@ -71,44 +53,52 @@ export default async function  ProjectsPage({searchParams }) {
         </div>
 
         <Link
-          href="/projects/new"
-          className="rounded-lg bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 px-4 py-2.5 text-sm font-medium text-white transition hover:from-slate-900 hover:to-indigo-900"
-        >
-          + New Project
-        </Link>
-
+  href="/projects/new"
+  className="
+    rounded-lg
+    px-4 py-2.5
+    text-sm font-medium
+    text-white
+    transition
+    hover:opacity-90
+  "
+  style={{
+    backgroundColor: "var(--primary)",
+  }}
+>
+  + New Project
+</Link>
       </div>
 
-
       {/* Search + Filter */}
-
       <div className="flex flex-col gap-3 sm:flex-row">
 
         <input
           type="text"
           placeholder="Search projects..."
-            className="w-full rounded-lg border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 px-4 py-2.5 text-sm outline-none focus:border-white/20 sm:max-w-md text-white"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full rounded-lg border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 px-4 py-2.5 text-sm text-white outline-none focus:border-white/20 sm:max-w-md"
         />
 
-        <select className="rounded-lg border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 px-4 py-2.5 text-sm outline-none text-white hover:bg-gradient-to-r hover:from-slate-900 hover:to-indigo-900 focus:border-white/20  ">
-          <option value="all" className="text-white">All Projects</option>
-          <option value="progress" className="text-white bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 hover:bg-gradient-to-r hover:from-slate-900 hover:to-indigo-900">In Progress</option>
-          <option value="completed" className="text-white bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 hover:bg-gradient-to-r hover:from-slate-900 hover:to-indigo-900">Completed</option>
+        <select className="rounded-lg border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 px-4 py-2.5 text-sm text-white outline-none">
+          <option value="all">All Projects</option>
+          <option value="progress">In Progress</option>
+          <option value="completed">Completed</option>
         </select>
 
       </div>
 
-
       {/* Projects */}
-
       <div className="grid gap-5 md:grid-cols-2">
 
-        {filteredProjects.map((project) => (
+        {filteredProjects?.map((project) => (
           <ProjectCard
-            key={project.id}
+            key={project._id}
             project={project}
           />
         ))}
+
       </div>
 
     </div>

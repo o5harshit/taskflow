@@ -24,3 +24,39 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #818cf8;
+  --primary-bg: rgba(99, 102, 241, 0.1);
+}
+
+[data-theme="blue"] {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-bg: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="green"] {
+  --primary: #22c55e;
+  --primary-hover: #16a34a;
+  --primary-light: #4ade80;
+  --primary-bg: rgba(34, 197, 94, 0.1);
+}
+
+[data-theme="purple"] {
+  --primary: #a855f7;
+  --primary-hover: #9333ea;
+  --primary-light: #c084fc;
+  --primary-bg: rgba(168, 85, 247, 0.1);
+}
+
+[data-theme="red"] {
+  --primary: #ef4444;
+  --primary-hover: #dc2626;
+  --primary-light: #f87171;
+  --primary-bg: rgba(239, 68, 68, 0.1);
+}
+

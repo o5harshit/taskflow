@@ -2,10 +2,8 @@ import Project from "../../../../models/Project";
 import { connectDB } from "../../../../lib/mongodb";
 import { auth } from "../../auth/[...nextauth]/route";
 
-export async function POST(request) {
+export async function GET() {
   try {
-    const { name, description, status, priority, startDate, dueDate } =
-      await request.json();
     const session = await auth();
 
     // User is not logged in
@@ -20,19 +18,10 @@ export async function POST(request) {
 
     await connectDB();
 
-    const project = await Project.create({
-      name,
-      description,
-      status,
-      priority,
-      startDate,
-      dueDate,
-      owner : session.user.id,
-    });
-
+    const project = await Project.find({});
     return Response.json(
       {
-        message: "Project created successfully",
+        message: "Project fetched successfully",
         project,
       },
       { status: 201 },
@@ -42,7 +31,7 @@ export async function POST(request) {
 
     return Response.json(
       {
-        message: "Failed to create project",
+        message: "Failed to fetch project",
       },
       { status: 500 },
     );

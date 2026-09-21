@@ -76,7 +76,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     jwt: ({ token, user }) => {
-      console.log(token);
+      // console.log(token);
       return token;
     },
     session: ({ session, token, user }) => {

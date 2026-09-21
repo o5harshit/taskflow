@@ -4,7 +4,7 @@ import ProgressBar from "../ui/ProgressBar";
 export default function ProjectCard({ project }) {
   return (
     <Link
-      href={`/projects/${project.id}`}
+      href={`/projects/${project._id}`}
       className="group block rounded-xl border border-white/10 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 p-6 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg"
     >
 

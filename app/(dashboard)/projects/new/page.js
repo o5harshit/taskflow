@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { addProject } from "../../../../src/store/projectSlice";
 
 export default function NewProjectPage() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -29,48 +31,42 @@ export default function NewProjectPage() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const {
+    if (loading) return;
+
+    setLoading(true);
+
+    const { name, description, status, priority, startDate, dueDate } =
+      formData;
+
+    try {
+      const response = await axios.post("/api/projects/add", {
         name,
         description,
         status,
         priority,
         startDate,
         dueDate,
-    } = formData;
+      });
 
-    try {
-        const response = await axios.post("/api/projects/add", {
-            name,
-            description,
-            status,
-            priority,
-            startDate,
-            dueDate,
-        });
 
-        if (response.status === 201) {
-            dispatch(addProject(response.data.project));
+      if (response.status === 201) {
+        setLoading(false);
+        console.log("yes");
+        dispatch(addProject(response.data.project));
 
-            console.log("Project created:", response.data.project);
-
-            router.push("/projects");
-        }
+        router.push("/projects");
+      }
     } catch (error) {
-        console.error(
-            error.response?.data?.message || "Something went wrong"
-        );
+      console.error(error.response?.data?.message || "Something went wrong");
     }
-}
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 px-6 py-12 text-white">
       <div className="mx-auto w-full max-w-2xl">
-
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Create Project
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Create Project</h1>
 
           <p className="mt-2 text-base text-slate-400">
             Create a new project and start managing your work.
@@ -79,9 +75,7 @@ export default function NewProjectPage() {
 
         {/* Form Card */}
         <div className="rounded-xl border border-white/10 bg-[#0d111d] p-6 shadow-xl sm:p-7">
-
           <form onSubmit={handleSubmit} className="space-y-6">
-
             {/* Project Name */}
             <div>
               <label
@@ -148,7 +142,6 @@ export default function NewProjectPage() {
 
             {/* Status + Priority */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-
               {/* Status */}
               <div>
                 <label
@@ -217,7 +210,6 @@ export default function NewProjectPage() {
 
             {/* Dates */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-
               {/* Start Date */}
               <div>
                 <label
@@ -282,7 +274,6 @@ export default function NewProjectPage() {
 
             {/* Actions */}
             <div className="flex items-center justify-end gap-3">
-
               <button
                 type="button"
                 onClick={() => router.back()}
@@ -302,20 +293,28 @@ export default function NewProjectPage() {
 
               <button
                 type="submit"
+                disabled={loading}
                 className="
-                  rounded-lg
-                  bg-indigo-600
-                  px-6 py-3
-                  text-sm font-semibold
-                  text-white
-                  shadow-lg shadow-indigo-600/20
-                  transition
-                  hover:bg-indigo-500
-                "
+    flex items-center justify-center gap-2
+    rounded-lg
+    cursor-pointer
+    bg-indigo-600
+    px-6 py-3
+    text-sm font-semibold
+    text-white
+    shadow-lg shadow-indigo-600/20
+    transition
+    hover:bg-indigo-500
+    disabled:cursor-not-allowed
+    disabled:opacity-60
+  "
               >
-                Create Project
-              </button>
+                {loading && (
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                )}
 
+                {loading ? "Creating..." : "Create Project"}
+              </button>
             </div>
           </form>
         </div>

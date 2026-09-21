@@ -26,7 +26,7 @@ const navigation = [
   },
   {
     name: "Settings",
-    href: "/settings",
+    href: "/projects/settings",
     icon: "⚙",
   },
 ];
@@ -36,15 +36,11 @@ export default function Sidebar() {
 
   return (
     <aside className="hidden w-64 border-r  bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 text-gray-300 md:block">
-
       <div className="flex h-16 items-center border-b px-6">
-        <h1 className="text-xl font-bold">
-          TaskFlow
-        </h1>
+        <h1 className="text-xl font-bold">TaskFlow</h1>
       </div>
 
       <nav className="space-y-3 p-4">
-
         {navigation.map((item) => {
           const active = pathname === item.href;
 
@@ -60,10 +56,9 @@ export default function Sidebar() {
   text-white
   transition
   hover:from-slate-900
-  hover:to-indigo-900 ${active
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
-                }`}
+  hover:to-indigo-900 ${
+    active ? "bg-gray-900 text-white" : "text-gray-600 hover:bg-gray-100"
+  }`}
             >
               <span>{item.icon}</span>
 
@@ -71,7 +66,6 @@ export default function Sidebar() {
             </Link>
           );
         })}
-
       </nav>
     </aside>
   );
