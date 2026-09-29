@@ -1,12 +1,14 @@
 
-import { Prisma } from "@/src/generated/prisma/client";
+import { PrismaClient } from "../../../src/generated/prisma/client";
 import { NextResponse } from "next/server";
+
+const prisma = new PrismaClient();
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
 s
-    const product = await Prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         id: Number(id),
       },
