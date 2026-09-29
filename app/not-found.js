@@ -5,14 +5,12 @@ export default function NotFound() {
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 px-6">
       <div className="w-full max-w-xl text-center">
 
-        {/* 404 */}
         <div className="mb-6">
           <h1 className="bg-gradient-to-r from-indigo-400 to-violet-500 bg-clip-text text-8xl font-extrabold tracking-tight text-transparent sm:text-9xl">
             404
           </h1>
         </div>
 
-        {/* Content */}
         <h2 className="text-3xl font-bold text-white sm:text-4xl">
           Page not found
         </h2>
@@ -22,7 +20,6 @@ export default function NotFound() {
           It may have been moved, deleted, or the URL might be incorrect.
         </p>
 
-        {/* Button */}
         <div className="mt-8">
           <Link
             href="/"
