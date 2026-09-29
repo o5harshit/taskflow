@@ -47,6 +47,7 @@ export default function ProductsPage() {
 
   // Run when page loads
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts();
   }, []);
 
@@ -95,7 +96,7 @@ export default function ProductsPage() {
             </p>
 
             <p className="mt-2 text-sm text-gray-400">
-              Click "Add Dummy Data" to insert products.
+              Click Add Dummy Data to insert products.
             </p>
           </div>
         )}

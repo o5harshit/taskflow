@@ -11,7 +11,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
 
             <div className="mb-6 inline-flex items-center rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-300">
-              ✨ Simplify your team's workflow
+              ✨ Simplify your teams workflow
             </div>
 
             <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">

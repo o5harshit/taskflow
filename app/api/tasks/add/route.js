@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
-import { connectDB } from "@/lib/mongodb";
-import Task from "@/models/Task";
-import Project from "@/models/Project";
+import { auth } from "../../../api/auth/[...nextauth]/route";
+import { connectDB } from "../../../../lib/mongodb";
+import Task from "../../../../models/Task";
+import Project from "../../../../models/Project";
 
 export async function POST(request) {
   try {

@@ -199,7 +199,7 @@ export default function SignInPage() {
 
           {/* Signup */}
           <p className="mt-7 text-center text-sm text-slate-500">
-            Don't have an account?{" "}
+            Dont have an account
             <button
               type="button"
               onClick={() => router.push("/register")}

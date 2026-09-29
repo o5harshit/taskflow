@@ -34,6 +34,7 @@ export default function ProjectsPage() {
       project.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFilteredProjects(filtered);
   }, [search, projects]);
 
