@@ -177,7 +177,6 @@ export async function POST() {
   }
 
 
-//   import prisma from "@/lib/prisma";
 
 // export async function POST(request) { if the data came from the request.body
 //   try {
