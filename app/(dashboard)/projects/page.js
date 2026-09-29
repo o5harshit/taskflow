@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
   const [search, setSearch] = useState("");
 
   // Fetch projects
@@ -28,15 +27,9 @@ export default function ProjectsPage() {
     fetchProjects();
   }, []);
 
-  // Filter projects whenever search changes
-  useEffect(() => {
-    const filtered = projects.filter((project) =>
-      project.name.toLowerCase().includes(search.toLowerCase())
-    );
-
-    setFilteredProjects(filtered);
-  }, [search, projects]);
-
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className="space-y-8">
 

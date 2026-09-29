@@ -11,6 +11,7 @@ export function ThemeProvider({ children }) {
     const savedTheme = localStorage.getItem("theme");
 
     if (savedTheme) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(savedTheme);
     }
   }, []);

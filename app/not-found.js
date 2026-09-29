@@ -16,7 +16,7 @@ export default function NotFound() {
         </h2>
 
         <p className="mx-auto mt-4 max-w-md text-base font-medium leading-7 text-slate-400">
-          Sorry, we couldn't find the page you're looking for.
+          Sorry, we couldnt find the page you are looking for.
           It may have been moved, deleted, or the URL might be incorrect.
         </p>
 

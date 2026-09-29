@@ -8,7 +8,7 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(false);
   const [adding, setAdding] = useState(false);
 
-  // Fetch products
+  //Fetch products
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -47,7 +47,17 @@ export default function ProductsPage() {
 
   // Run when page loads
   useEffect(() => {
-    fetchProducts();
+    const loadProducts = async () => {
+      try {
+        const response = await axios.get("/api/products");
+  
+        setProducts(response.data.products);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+  
+    loadProducts();
   }, []);
 
   return (
