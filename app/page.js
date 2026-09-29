@@ -22,9 +22,9 @@ export default function HomePage() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-8 text-slate-400">
-              TaskFlow helps teams organize projects, manage tasks,
+              TaskFlow helps various teams organize projects, manage tasks,
               collaborate with members, and keep everything moving
-              in one place.
+              in one place this app is great and solve problems.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
