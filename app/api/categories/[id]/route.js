@@ -1,3 +1,8 @@
+import { PrismaClient } from "../../../../src/generated/prisma/client";
+import { NextResponse } from "next/server";
+
+const prisma = new PrismaClient();
+
 export async function POST(request) {
     try {
       const body = await request.json();
@@ -16,7 +21,7 @@ export async function POST(request) {
         );
       }
   
-      const category = await prisma.category.create({
+      const category = await Prisma.category.create({
         data: {
           name,
         },

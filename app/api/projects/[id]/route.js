@@ -1,4 +1,4 @@
-import Project from "@/models/Project";
+import Project from "../../../../models/Project";
 import { auth } from "../../auth/[...nextauth]/route";
 
 export async function GET(_, { params }) {
