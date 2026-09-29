@@ -13,7 +13,7 @@ export default function ProjectNotFound() {
       </h1>
 
       <p className="mt-2 text-gray-500">
-        The project you're looking for doesn't exist.
+        The project youre looking for doesnt exist.
       </p>
 
       <Link

@@ -1,4 +1,6 @@
 import { PrismaClient } from "../../../src/generated/prisma/client";
+
+
 import { NextResponse } from "next/server";
 
 
@@ -16,7 +18,6 @@ export async function GET() {
       },
     });
 
-    console.log(products);
 
     return NextResponse.json({
       success: true,
@@ -177,7 +178,6 @@ export async function POST() {
   }
 
 
-//   import prisma from "@/lib/prisma";
 
 // export async function POST(request) { if the data came from the request.body
 //   try {
