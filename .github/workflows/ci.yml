@@ -7,7 +7,11 @@ on:
 
 jobs:
   ci:
-    name: Build and Test TaskFlow
+
+    env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+        MONGODB_URL : ${{secrets.MONGODB_URL}}
 
     runs-on: ubuntu-latest
 
